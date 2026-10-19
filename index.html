@@ -1,0 +1,655 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Panduan Scratch Laboratorium Tabrakan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: satu kolom bacaan 46rem di tengah, daftar isi dua kolom di atas, langkah bernomor karena urutannya memang penting, tabel dan kode di wadah scroll sendiri. */
+:root {
+  --bg: #f4f7f8;
+  --surface: #ffffff;
+  --fg: #14232b;
+  --muted: #4f636d;
+  --line: #d3dee3;
+  --accent: #0a6e78;
+  --accent-soft: #e0f0f2;
+  --warn: #9a4a06;
+  --warn-soft: #fbeedd;
+  --code-bg: #eaf1f3;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e191e; --surface: #14232a; --fg: #e3edf0; --muted: #94a9b2; --line: #28404a;
+    --accent: #52c4cd; --accent-soft: #123a40; --warn: #f2b765; --warn-soft: #3a2a12; --code-bg: #0a1317;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e191e; --surface: #14232a; --fg: #e3edf0; --muted: #94a9b2; --line: #28404a;
+  --accent: #52c4cd; --accent-soft: #123a40; --warn: #f2b765; --warn-soft: #3a2a12; --code-bg: #0a1317;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.7; }
+.wrap { max-width: 46rem; margin-inline: auto; padding-inline: 1rem; padding-block: 2rem 4rem; }
+header.top { padding-block-end: 1.5rem; border-bottom: 1px solid var(--line); margin-block-end: 1.5rem; }
+.eyebrow { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 6vw, 2.7rem); line-height: 1.1; margin: 0 0 .75rem; text-wrap: balance; font-weight: 700; }
+h2 { font-family: var(--font-display); font-size: 1.55rem; line-height: 1.2; margin: 3rem 0 .75rem; text-wrap: balance; font-weight: 700; scroll-margin-top: 1rem; }
+h3 { font-family: var(--font-display); font-size: 1.15rem; margin: 2rem 0 .5rem; font-weight: 600; text-wrap: balance; }
+p { margin: 0 0 1rem; }
+.lead { font-size: 1.08rem; color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-size: .88rem; color: var(--muted); margin: 0; }
+.meta b { color: var(--fg); font-weight: 600; }
+nav.toc { background: var(--surface); border: 1px solid var(--line); padding: 1rem 1.25rem; margin-block-end: 1rem; }
+nav.toc h2 { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 .5rem; font-family: var(--font-body); font-weight: 600; }
+nav.toc ol { margin: 0; padding-inline-start: 1.4rem; columns: 2 16rem; column-gap: 2rem; font-size: .93rem; }
+nav.toc li { margin: 0 0 .25rem; break-inside: avoid; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font-family: var(--font-mono); font-size: .88em; background: var(--code-bg); padding: .08em .35em; }
+ol.steps { padding-inline-start: 1.6rem; margin: 0 0 1.25rem; }
+ol.steps li { margin: 0 0 .6rem; padding-inline-start: .3rem; }
+ol.steps li::marker { color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; }
+.code { background: var(--code-bg); border: 1px solid var(--line); margin: 0 0 1.25rem; overflow-x: auto; }
+.code .cap { font-family: var(--font-body); font-size: .74rem; letter-spacing: .07em; text-transform: uppercase; font-weight: 600; color: var(--muted); padding: .5rem 1rem; border-bottom: 1px solid var(--line); }
+.code pre { margin: 0; padding: .9rem 1rem; font-family: var(--font-mono); font-size: .84rem; line-height: 1.6; tab-size: 2; }
+.note { background: var(--accent-soft); padding: .9rem 1.1rem; margin: 0 0 1.25rem; }
+.note.warn { background: var(--warn-soft); }
+.note .lab { display: block; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; color: var(--accent); margin-bottom: .2rem; }
+.note.warn .lab { color: var(--warn); }
+.note p:last-child { margin-bottom: 0; }
+.tablewrap { overflow-x: auto; margin: 0 0 1.25rem; border: 1px solid var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; line-height: 1.5; }
+th, td { text-align: left; vertical-align: top; padding: .55rem .8rem; border-bottom: 1px solid var(--line); }
+th { font-size: .76rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); background: var(--code-bg); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); font-size: .85rem; white-space: nowrap; }
+td.mono { font-family: var(--font-mono); font-size: .85rem; }
+td.mid, th.mid { text-align: center; }
+.check { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+.check li { display: flex; gap: .7rem; padding: .45rem 0; border-bottom: 1px solid var(--line); }
+.check li::before { content: ""; flex: none; width: 1rem; height: 1rem; margin-top: .35rem; border: 2px solid var(--accent); }
+details { border: 1px solid var(--line); background: var(--surface); margin: 0 0 .6rem; }
+summary { cursor: pointer; padding: .7rem 1rem; font-weight: 600; }
+details > div { padding: 0 1rem .6rem; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .85rem; color: var(--muted); }
+@media (max-width: 480px) { body { font-size: 15.5px; } .code pre { font-size: .79rem; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+<header class="top">
+  <p class="eyebrow">Media Pembelajaran Fisika · Kelompok 6</p>
+  <h1>Panduan Scratch Laboratorium Tabrakan</h1>
+  <p class="lead">Panduan lengkap dari nol sampai tautan proyek siap dikumpulkan, untuk media Momentum dan Impuls dengan latar stasiun dan dua kereta buatanmu. Setiap tahap berisi langkah bernomor, skrip bloknya, dan cara mengeceknya, sehingga kamu bisa berhenti kapan saja dan melanjutkan di tahap berikutnya.</p>
+  <p class="meta"><span><b>Pembuat</b> Ahnaf Ahmadin Al Faqir</span><span><b>NIM</b> 24030230043</span><span><b>Aplikasi</b> Scratch 3.0</span></p>
+</header>
+
+<nav class="toc" aria-label="Daftar isi">
+  <h2>Isi panduan</h2>
+  <ol>
+    <li><a href="#gambaran">Gambaran dan peta kerja</a></li>
+    <li><a href="#akun">Akun dan proyek baru</a></li>
+    <li><a href="#latar">Latar dan kedua kereta</a></li>
+    <li><a href="#variabel">Variabel dan slider</a></li>
+    <li><a href="#tombol">Sprite tombol dan judul</a></li>
+    <li><a href="#pesan">Pesan siaran dan Panggung</a></li>
+    <li><a href="#script12">Script 1 dan 2: pembuka dan menu</a></li>
+    <li><a href="#script3">Script 3: tumbukan kereta</a></li>
+    <li><a href="#script4">Script 4: impuls pada penahan rel</a></li>
+    <li><a href="#script56">Script 5 dan 6: kuis dan skor akhir</a></li>
+    <li><a href="#uji">Uji menyeluruh dan angka acuan</a></li>
+    <li><a href="#bagikan">Menyimpan, membagikan, dan mengambil link</a></li>
+    <li><a href="#docx">Mengisi dokumen Script (docx)</a></li>
+    <li><a href="#masalah">Masalah yang sering muncul</a></li>
+    <li><a href="#validasi">Validasi teman sejawat dan daftar periksa</a></li>
+  </ol>
+</nav>
+
+<h2 id="gambaran">1. Gambaran dan peta kerja</h2>
+<p>Media ini hanya punya satu latar, yaitu stasiun milikmu, dan enam tampilan yang berpindah lewat tombol. Siswa memulai dari halaman pembuka, masuk ke menu, lalu memilih salah satu dari tiga bagian: simulasi tumbukan dua kereta untuk momentum, simulasi kereta yang menabrak penahan rel untuk impuls, dan kuis tiga soal. Setelah kuis selesai, skor tampil lalu media kembali ke menu. Nomor tampilannya sama dengan nomor Script pada dokumen Word yang diminta dosen, jadi saat mengisi dokumen itu kamu tinggal mengikuti urutan yang sama.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Script</th><th>Tampilan</th><th>Dibuat di bagian</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Halaman pembuka: judul, identitas pembuat, tombol Mulai</td><td>bagian 7</td></tr>
+<tr><td>2</td><td>Menu utama: tombol Tumbukan, Impuls, Kuis</td><td>bagian 7</td></tr>
+<tr><td>3</td><td>Simulasi tumbukan dua kereta (momentum)</td><td>bagian 8</td></tr>
+<tr><td>4</td><td>Simulasi impuls pada penahan rel</td><td>bagian 9</td></tr>
+<tr><td>5</td><td>Kuis tiga soal</td><td>bagian 10</td></tr>
+<tr><td>6</td><td>Skor akhir dan kembali ke menu</td><td>bagian 10</td></tr>
+</tbody></table></div>
+<p>Urutan kerja yang aku sarankan: kerjakan bagian 2 sampai 6 sekali jalan sebagai fondasi, lalu langsung buat bagian 8 (tumbukan) dan uji sampai angkanya cocok, karena itu inti medianya. Setelah itu baru buat pembuka dan menu (bagian 7), impuls, dan kuis. Simpan proyek di akhir setiap bagian. Kalau seluruhnya dikerjakan berurutan dengan santai, perkirakan beberapa jam kerja, dan bagian 8 saja kira-kira satu sampai dua jam.</p>
+
+<h2 id="akun">2. Akun dan proyek baru</h2>
+<ol class="steps">
+  <li>Buka <b>scratch.mit.edu</b> di peramban komputer. Klik <b>Masuk</b> dan pakai akunmu. Kalau belum punya akun, klik <b>Gabung Scratch</b> dan ikuti pendaftarannya. Akun diperlukan supaya proyek tersimpan di awan dan bisa dibagikan lewat tautan.</li>
+  <li>Klik <b>Buat</b> pada bilah atas untuk membuka editor dengan proyek kosong.</li>
+  <li>Ganti bahasa lewat ikon globe di kiri atas, lalu pilih <b>Bahasa Indonesia</b>. Nama blok di panduan ini mengikuti bahasa Indonesia. Kalau kamu memilih bahasa Inggris, padanannya misalnya <i>when green flag clicked</i>, <i>set to</i>, <i>change by</i>, <i>broadcast</i>, dan <i>when I receive</i>.</li>
+  <li>Klik kotak nama proyek di bilah atas dan tulis <code>Laboratorium Tabrakan - Momentum dan Impuls</code>.</li>
+  <li>Pada panel sprite di kanan bawah, hapus sprite kucing dengan klik ikon tempat sampah pada pojok sprite itu. Kamu akan memakai kereta sebagai gantinya.</li>
+  <li>Buka menu <b>Berkas</b> lalu pilih <b>Simpan sekarang</b>. Biasakan melakukannya setiap selesai satu bagian.</li>
+  <li>Buat cadangan di komputer lewat <b>Berkas</b> lalu <b>Simpan ke komputer-mu</b>. Hasilnya berkas berakhiran .sb3 yang bisa dibuka lagi lewat <b>Berkas</b> lalu <b>Muat dari komputer-mu</b>.</li>
+</ol>
+<p>Kenali empat area editor sebelum lanjut. Di kiri ada tiga tab: <b>Kode</b> untuk menyusun blok, <b>Kostum</b> (atau Latar, kalau yang dipilih Panggung) untuk menggambar dan mengganti tampilan, dan <b>Suara</b>. Di kanan atas ada <b>Panggung</b> berukuran 480 kali 360 piksel dengan titik tengah (0, 0), jadi x berjalan dari -240 sampai 240 dan y dari -180 sampai 180. Di kanan bawah ada <b>panel sprite</b> berisi daftar sprite beserta isian nama, posisi x dan y, ukuran, dan arah, dan di sebelahnya ada panel <b>Panggung</b> untuk latar. Blok kode diambil dari palet kategori di sebelah kiri area skrip.</p>
+
+<h2 id="latar">3. Latar dan kedua kereta</h2>
+<p>Gambarmu sudah bagus, jadi bagian ini hanya memasangnya dengan ukuran dan posisi yang pas. Satu catatan sebelum mulai: di tangkapan layarmu ada strip putih sekitar 45 piksel di bawah gambar latar, karena gambar latar lebih lebar daripada rasio panggung. Perbaiki sebelum diunggah, supaya tampilan penuh.</p>
+<h3>Latar</h3>
+<ol class="steps">
+  <li>Buka gambar latarmu di aplikasi apa saja yang kamu pakai (Canva, Paint, atau pengolah gambar lain). Potong atau ubah ukurannya ke rasio 4:3, misalnya 1440 kali 1080 piksel, lalu simpan sebagai PNG atau JPG.</li>
+  <li>Di panel Panggung (kanan bawah), arahkan kursor ke tombol <b>Pilih Latar</b> dan klik <b>Unggah Latar</b>. Pilih berkas gambar tadi.</li>
+  <li>Buka tab <b>Latar</b>. Hapus latar kosong bawaan dengan klik kanan pada latar itu, lalu pilih hapus. Ganti nama latarmu menjadi <code>stasiun</code>.</li>
+  <li>Lihat panggung. Gambar harus memenuhi seluruh layar tanpa strip putih. Kalau masih ada, potong ulang gambarnya.</li>
+</ol>
+<h3>Kereta merah dan biru</h3>
+<ol class="steps">
+  <li>Di panel sprite, arahkan kursor ke tombol <b>Pilih Sprite</b> (ikon kucing) dan klik <b>Unggah Sprite</b>. Pilih gambar kereta merah, sebaiknya PNG dengan latar transparan. Ganti nama sprite menjadi <code>Benda A</code>.</li>
+  <li>Lakukan hal sama untuk kereta biru dan beri nama <code>Benda B</code>.</li>
+  <li>Isi <b>Ukuran</b> kedua sprite dengan <code>35</code>. Pada ukuran 50 persen, kereta biru di tangkapanmu sudah mentok di tepi kanan, jadi setelah ditabrak ia tidak punya ruang bergerak.</li>
+  <li>Isi posisi <b>Benda A</b> dengan x = <code>-165</code>, y = <code>-21</code>. Isi posisi <b>Benda B</b> dengan x = <code>45</code>, y = <code>-21</code>. Samakan y keduanya dan sesuaikan sedikit kalau roda belum pas di atas rel.</li>
+  <li>Pastikan <b>Arah</b> keduanya 90. Catat angka x dan y final, karena angka itu dipakai di skrip nanti.</li>
+</ol>
+<p>Hasil yang benar: kedua kereta berada di atas rel, saling berhadapan dengan celah kosong sekitar 60 piksel, dan di sebelah kanan kereta biru masih ada ruang. Pada tahap ini belum ada skrip, jadi kereta belum bergerak.</p>
+
+<h2 id="variabel">4. Variabel dan slider</h2>
+<p>Semua variabel dibuat sekali dengan pilihan <b>Untuk semua sprite</b>, karena hampir semuanya dipakai oleh lebih dari satu sprite. Nama variabel di bawah ini harus persis sama di semua skrip, termasuk huruf besar kecilnya.</p>
+<ol class="steps">
+  <li>Buka tab <b>Kode</b> dan pilih kategori <b>Variabel</b>.</li>
+  <li>Klik <b>Buat Variabel</b>. Ketik nama, pilih <b>Untuk semua sprite</b>, lalu klik <b>OK</b>. Ulangi sampai semua variabel pada tabel berikut ada.</li>
+</ol>
+<div class="tablewrap"><table>
+<thead><tr><th>Variabel</th><th>Dipakai di</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td class="mono">m1, m2</td><td>Tumbukan</td><td>Massa kereta merah dan biru (kg), slider</td></tr>
+<tr><td class="mono">v1, v2</td><td>Tumbukan, Impuls</td><td>Kecepatan awal (m/s), slider. Di Impuls hanya v1 yang dipakai</td></tr>
+<tr><td class="mono">e</td><td>Tumbukan</td><td>Koefisien restitusi: 1, 0,5, atau 0</td></tr>
+<tr><td class="mono">vA, vB</td><td>Tumbukan</td><td>Kecepatan yang sedang berjalan</td></tr>
+<tr><td class="mono">v1akhir, v2Akhir</td><td>Tumbukan</td><td>Kecepatan sesaat setelah tumbukan (perhatikan huruf A besar di v2Akhir)</td></tr>
+<tr><td class="mono">sudahTabrak</td><td>Tumbukan</td><td>0 atau 1, agar tumbukan dihitung sekali</td></tr>
+<tr><td class="mono">pAwal, pAkhir</td><td>Tumbukan</td><td>Momentum total sebelum dan sesudah</td></tr>
+<tr><td class="mono">EKawal, EKakhir</td><td>Tumbukan</td><td>Energi kinetik total sebelum dan sesudah</td></tr>
+<tr><td class="mono">I, dt, F</td><td>Impuls</td><td>Impuls, waktu kontak, gaya rata-rata. Nama I memakai huruf i besar</td></tr>
+<tr><td class="mono">bagian</td><td>Tumbukan, Impuls</td><td>1 untuk Tumbukan, 2 untuk Impuls</td></tr>
+<tr><td class="mono">skor, a, b</td><td>Kuis</td><td>Skor dan angka acak soal</td></tr>
+</tbody></table></div>
+<p>Sekarang ubah empat variabel menjadi slider. Slider tidak bisa ditulis tangan di blok, jadi lakukan dengan cara berikut.</p>
+<ol class="steps">
+  <li>Centang kotak di samping variabel <code>m1</code> di palet agar kotak nilainya tampil di panggung.</li>
+  <li>Klik kanan pada kotak nilai itu di panggung lalu pilih <b>slider</b>.</li>
+  <li>Klik kanan lagi lalu pilih <b>Ubah jangkauan slider</b>, isi minimum dan maksimumnya sesuai tabel di bawah, lalu klik OK.</li>
+  <li>Ulangi untuk m2, v1, dan v2, lalu seret keempat slider ke bagian atas panggung dan susun rapi. Hilangkan centang variabel lain supaya tidak menumpuk di layar.</li>
+  <li>Geser tiap slider sampai nilainya m1 = 2, m2 = 2, v1 = 6, dan v2 = 0. Ini nilai awal untuk uji pertamamu.</li>
+</ol>
+<div class="tablewrap"><table>
+<thead><tr><th>Slider</th><th class="num">Minimum</th><th class="num">Maksimum</th></tr></thead>
+<tbody>
+<tr><td>m1, m2</td><td class="num">1</td><td class="num">10</td></tr>
+<tr><td>v1</td><td class="num">1</td><td class="num">10</td></tr>
+<tr><td>v2</td><td class="num">-5</td><td class="num">5</td></tr>
+</tbody></table></div>
+<p>Nilai minimum v1 sengaja 1 agar kereta selalu bergerak. Nilai v2 negatif berarti kereta biru bergerak ke kiri, menuju kereta merah.</p>
+
+<h2 id="tombol">5. Sprite tombol dan judul</h2>
+<p>Semua tombol cukup berupa persegi panjang berwarna dengan tulisan, digambar langsung di editor Scratch. Cara menggambarnya sama untuk semua sprite, jadi pelajari sekali di sini.</p>
+<ol class="steps">
+  <li>Di panel sprite, arahkan kursor ke tombol <b>Pilih Sprite</b> dan klik <b>Lukis</b> (ikon kuas). Sprite kosong terbentuk dan tab <b>Kostum</b> terbuka.</li>
+  <li>Pilih alat <b>Persegi</b>, atur warna isi dan garis tepinya, lalu seret di area gambar untuk membuat bentuk tombol.</li>
+  <li>Pilih alat <b>Teks</b>, klik di atas bentuk tadi, ketik tulisan tombol, lalu atur jenis huruf dan warnanya sampai terbaca jelas.</li>
+  <li>Pilih alat <b>Pilih</b> (panah), tarik kotak seleksi di sekitar bentuk dan teks, lalu klik <b>Kelompokkan</b> supaya keduanya bergerak bersama. Tengahkan gambar di titik pusat kanvas.</li>
+  <li>Ganti nama kostum dan nama sprite sesuai tabel di bawah. Untuk sprite berkostum banyak, klik kanan kostum lalu pilih <b>Gandakan</b> dan ubah tulisannya.</li>
+</ol>
+<div class="tablewrap"><table>
+<thead><tr><th>Sprite</th><th>Tulisan pada kostum</th><th>Posisi (x, y)</th></tr></thead>
+<tbody>
+<tr><td>Judul</td><td>Dua kostum, lihat penjelasan di bawah tabel</td><td>0, 100</td></tr>
+<tr><td>Tombol Mulai</td><td>MULAI</td><td>0, -120</td></tr>
+<tr><td>Tombol Tumbukan</td><td>TUMBUKAN</td><td>-150, -110</td></tr>
+<tr><td>Tombol Impuls</td><td>IMPULS</td><td>0, -110</td></tr>
+<tr><td>Tombol Kuis</td><td>KUIS</td><td>150, -110</td></tr>
+<tr><td>Tombol Jenis</td><td>Tiga kostum: Lenting Sempurna, Lenting Sebagian, Tidak Lenting</td><td>0, -95</td></tr>
+<tr><td>Tombol Kembali</td><td>KEMBALI</td><td>-150, -145</td></tr>
+<tr><td>Tombol Jalankan</td><td>JALANKAN</td><td>0, -145</td></tr>
+<tr><td>Tombol Ulangi</td><td>ULANGI</td><td>150, -145</td></tr>
+<tr><td>Penahan</td><td>Tiga kostum: Beton, Karet, Pegas (lihat bagian 9)</td><td>215, -21</td></tr>
+</tbody></table></div>
+<p>Posisi di tabel hanya titik awal yang masuk akal untuk latarmu. Atur lagi secara visual lewat isian x dan y di panel sprite kalau tombolnya menimpa kereta atau rel. Tombol sebaiknya berada di area rumput di bawah rel.</p>
+<h3>Sprite Judul</h3>
+<p>Sprite Judul punya dua kostum. Kostum pertama bernama <code>pembuka</code> dan dipakai di halaman pembuka. Gambar persegi panjang berwarna biru tua dengan transparansi sekitar 20 sampai 30 persen (atur lewat penggeser transparansi pada pilihan warna isi) supaya tulisan putihnya terbaca di atas langit pada latarmu. Lalu tulis baris-baris berikut dengan alat Teks, dan lebar kostum sebaiknya tidak lebih dari sekitar 420 piksel.</p>
+<div class="code"><div class="cap">Isi kostum pembuka</div><pre>LABORATORIUM TABRAKAN                       (huruf besar)
+Media Pembelajaran Fisika: Momentum dan Impuls
+Ahnaf Ahmadin Al Faqir
+NIM 24030230043
+Pendidikan Fisika C, Universitas Negeri Yogyakarta
+Gambar latar dan kereta: karya sendiri      (huruf kecil)</pre></div>
+<p>Baris terakhir adalah keterangan aset. Tuliskan apa adanya sesuai kenyataan. Kalau gambar dibuat dengan bantuan alat tertentu atau ada bagian yang diambil dari sumber lain, sebutkan itu di baris tersebut. Kostum kedua bernama <code>menu</code> dan berisi satu baris saja, yaitu <code>Pilih Bagian Pembelajaran</code>, dengan persegi panjang yang lebih kecil dan gaya yang sama.</p>
+<p>Setelah semua sprite jadi, klik bendera hijau dan pastikan semuanya tampil bertumpuk di layar. Itu wajar, karena pengaturan tampil dan sembunyi dikerjakan di bagian 6 dan 7.</p>
+
+<h2 id="pesan">6. Pesan siaran dan Panggung</h2>
+<p>Perpindahan tampilan dilakukan dengan pesan siaran. Tombol hanya mengirim pesan. Panggung menerima pesan itu, menyembunyikan semua sprite, lalu mengirim pesan <code>tampil</code> yang sesuai. Sprite yang perlu tampil pada tampilan itu menerima pesan <code>tampil</code> dan menampilkan dirinya. Polanya sama untuk semua tampilan, jadi sekali paham, sisanya hanya pengulangan.</p>
+<p>Buat pesan lewat kategori <b>Peristiwa</b>: seret blok <b>siarkan</b>, klik panah pada kotaknya, pilih <b>Pesan baru</b>, lalu ketik namanya. Pesan yang diperlukan ada di tabel berikut.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Pesan</th><th>Dikirim oleh</th><th>Diterima oleh</th></tr></thead>
+<tbody>
+<tr><td class="mono">ke pembuka, ke menu, ke tumbukan, ke impuls, ke kuis</td><td>Tombol (Mulai, menu, Kembali) dan kuis</td><td>Panggung</td></tr>
+<tr><td class="mono">sembunyikan semua</td><td>Panggung</td><td>Semua sprite dan Panggung</td></tr>
+<tr><td class="mono">tampil pembuka, tampil menu, tampil tumbukan, tampil impuls, tampil kuis</td><td>Panggung</td><td>Sprite yang tampil pada tampilan itu</td></tr>
+<tr><td class="mono">mulai kuis</td><td>Panggung</td><td>Benda A</td></tr>
+<tr><td class="mono">jalankan tumbukan, jalankan impuls</td><td>Tombol Jalankan</td><td>Benda A dan Benda B</td></tr>
+<tr><td class="mono">ulangi</td><td>Tombol Ulangi dan Tombol Jalankan</td><td>Benda A dan Benda B</td></tr>
+<tr><td class="mono">hitung hasil</td><td>Benda A</td><td>Benda A</td></tr>
+<tr><td class="mono">peringatan</td><td>Tombol Jalankan</td><td>Benda A</td></tr>
+</tbody></table></div>
+<p>Sekarang pilih <b>Panggung</b> di panel kanan bawah, buka tab <b>Kode</b>, dan susun skrip berikut.</p>
+<div class="code"><div class="cap">Panggung</div><pre>ketika bendera hijau diklik
+atur [bagian] ke (1)
+siarkan [ke pembuka]
+
+ketika saya menerima [sembunyikan semua]
+sembunyikan variabel [m1]
+sembunyikan variabel [m2]
+sembunyikan variabel [v1]
+sembunyikan variabel [v2]
+sembunyikan variabel [pAwal]
+sembunyikan variabel [pAkhir]
+sembunyikan variabel [EKawal]
+sembunyikan variabel [EKakhir]
+sembunyikan variabel [I]
+sembunyikan variabel [dt]
+sembunyikan variabel [F]
+
+ketika saya menerima [ke pembuka]
+siarkan [sembunyikan semua] dan tunggu
+siarkan [tampil pembuka]
+
+ketika saya menerima [ke menu]
+siarkan [sembunyikan semua] dan tunggu
+siarkan [tampil menu]
+
+ketika saya menerima [ke tumbukan]
+siarkan [sembunyikan semua] dan tunggu
+atur [bagian] ke (1)
+tampilkan variabel [m1]
+tampilkan variabel [m2]
+tampilkan variabel [v1]
+tampilkan variabel [v2]
+siarkan [tampil tumbukan]
+
+ketika saya menerima [ke impuls]
+siarkan [sembunyikan semua] dan tunggu
+atur [bagian] ke (2)
+tampilkan variabel [m1]
+tampilkan variabel [v1]
+tampilkan variabel [I]
+tampilkan variabel [dt]
+tampilkan variabel [F]
+siarkan [tampil impuls]
+
+ketika saya menerima [ke kuis]
+siarkan [sembunyikan semua] dan tunggu
+siarkan [tampil kuis] dan tunggu
+siarkan [mulai kuis]</pre></div>
+<p>Pada skrip bendera hijau, sebuah nilai <code>bagian</code> ditetapkan hanya supaya variabel itu punya isi sejak awal.</p>
+
+<h2 id="script12">7. Script 1 dan 2: halaman pembuka dan menu</h2>
+<p>Bagian ini menghubungkan sprite dengan pesan dari bagian 6. Semua sprite mengikuti pola yang sama: satu skrip untuk bersembunyi saat menerima <code>sembunyikan semua</code>, dan satu atau lebih skrip untuk tampil saat menerima pesan <code>tampil</code> yang relevan.</p>
+<h3>Judul</h3>
+<div class="code"><div class="cap">Judul</div><pre>ketika saya menerima [tampil pembuka]
+ganti kostum menjadi [pembuka]
+pergi ke x: (0) y: (100)
+tampilkan
+
+ketika saya menerima [tampil menu]
+ganti kostum menjadi [menu]
+pergi ke x: (0) y: (110)
+tampilkan
+
+ketika saya menerima [sembunyikan semua]
+sembunyi</pre></div>
+<h3>Tombol Mulai dan tiga tombol menu</h3>
+<div class="code"><div class="cap">Tombol Mulai</div><pre>ketika saya menerima [tampil pembuka]
+pergi ke x: (0) y: (-120)
+tampilkan
+
+ketika sprite ini diklik
+siarkan [ke menu]
+
+ketika saya menerima [sembunyikan semua]
+sembunyi</pre></div>
+<div class="code"><div class="cap">Tombol Tumbukan (Tombol Impuls dan Tombol Kuis sama, hanya pesannya berbeda)</div><pre>ketika saya menerima [tampil menu]
+tampilkan
+
+ketika sprite ini diklik
+siarkan [ke tumbukan]
+
+ketika saya menerima [sembunyikan semua]
+sembunyi</pre></div>
+<p>Untuk Tombol Impuls, ganti pesan klik menjadi <code>ke impuls</code>. Untuk Tombol Kuis, jadi <code>ke kuis</code>.</p>
+<h3>Benda A dan Benda B saat pembuka dan menu</h3>
+<p>Kedua kereta tampil di pembuka dan menu supaya latarnya hidup. Setiap kali tampil, kereta dikembalikan ke posisi awal, karena kereta bisa saja tertinggal di tempat lain setelah simulasi.</p>
+<div class="code"><div class="cap">Benda A</div><pre>ketika saya menerima [tampil pembuka]
+pergi ke x: (-165) y: (-21)
+tampilkan
+
+ketika saya menerima [tampil menu]
+pergi ke x: (-165) y: (-21)
+tampilkan
+
+ketika saya menerima [tampil tumbukan]
+pergi ke x: (-165) y: (-21)
+tampilkan
+
+ketika saya menerima [tampil impuls]
+pergi ke x: (-165) y: (-21)
+tampilkan
+
+ketika saya menerima [tampil kuis]
+pergi ke x: (-165) y: (-21)
+tampilkan
+
+ketika saya menerima [sembunyikan semua]
+hentikan [skrip lain dalam sprite]
+sembunyi</pre></div>
+<div class="code"><div class="cap">Benda B</div><pre>ketika saya menerima [tampil pembuka]
+pergi ke x: (45) y: (-21)
+tampilkan
+
+ketika saya menerima [tampil menu]
+pergi ke x: (45) y: (-21)
+tampilkan
+
+ketika saya menerima [tampil tumbukan]
+pergi ke x: (45) y: (-21)
+tampilkan
+
+ketika saya menerima [sembunyikan semua]
+hentikan [skrip lain dalam sprite]
+sembunyi</pre></div>
+<p>Ganti -165, 45, dan -21 dengan posisi final yang kamu catat di bagian 3. Blok “hentikan skrip lain dalam sprite” diambil dari kategori <b>Kontrol</b>: seret blok <b>hentikan</b>, lalu pilih <b>skrip lain dalam sprite</b> pada kotaknya. Blok ini menghentikan simulasi yang masih berjalan saat pengguna kembali ke menu.</p>
+<h3>Cek bagian ini</h3>
+<p>Klik bendera hijau. Yang tampil: judul dengan identitasmu, tombol Mulai, dan kedua kereta di atas rel. Klik Mulai, dan tampilan berganti ke menu dengan tiga tombol. Klik Tumbukan, dan menu hilang, slider dan kereta tampil, tetapi tombol lain belum muncul karena belum dibuat skripnya. Itu benar untuk tahap ini.</p>
+
+<h2 id="script3">8. Script 3: tumbukan kereta</h2>
+<p>Ini bagian terpenting. Kereta merah (Benda A) bergerak ke kanan dan menabrak kereta biru (Benda B). Siswa mengatur massa dan kecepatan lewat slider, memilih jenis tumbukan, lalu menekan Jalankan. Kerjakan langkahnya berurutan dan jalankan program setelah setiap langkah.</p>
+
+<h3>Langkah 1. Tombol Jenis</h3>
+<p>Tombol Jenis punya tiga kostum, dan setiap klik berpindah ke kostum berikutnya sambil mengubah e. Nilai e adalah koefisien restitusi: 1 untuk lenting sempurna, 0,5 untuk lenting sebagian, dan 0 untuk tidak lenting. Satu rumus melayani ketiganya hanya dengan mengubah e.</p>
+<div class="code"><div class="cap">Tombol Jenis</div><pre>ketika saya menerima [tampil tumbukan]
+ganti kostum menjadi [Lenting Sempurna]
+atur [e] ke (1)
+tampilkan
+
+ketika sprite ini diklik
+kostum berikutnya
+jika &lt;(kostum [nomor]) = (1)&gt; maka
+  atur [e] ke (1)
+jika &lt;(kostum [nomor]) = (2)&gt; maka
+  atur [e] ke (0.5)
+jika &lt;(kostum [nomor]) = (3)&gt; maka
+  atur [e] ke (0)
+
+ketika saya menerima [sembunyikan semua]
+sembunyi</pre></div>
+<p>Blok <b>kostum [nomor]</b> adalah blok bulat di kategori <b>Tampilan</b>. Pilih <b>nomor</b> pada kotaknya, bukan <b>nama</b>.</p>
+
+<h3>Langkah 2. Tombol Jalankan, Ulangi, dan Kembali</h3>
+<p>Tombol Jalankan memeriksa dulu apakah tabrakan bisa terjadi. Kereta merah berada di kiri, jadi ia hanya akan menyusul kereta biru kalau kecepatannya lebih besar. Kalau tidak, Benda A menampilkan peringatan.</p>
+<div class="code"><div class="cap">Tombol Jalankan</div><pre>ketika saya menerima [tampil tumbukan]
+tampilkan
+
+ketika saya menerima [tampil impuls]
+tampilkan
+
+ketika sprite ini diklik
+jika &lt;(bagian) = (1)&gt; maka
+  jika &lt;(v1) &gt; (v2)&gt; maka
+    siarkan [ulangi] dan tunggu
+    atur [vA] ke (v1)
+    atur [vB] ke (v2)
+    atur [sudahTabrak] ke (0)
+    siarkan [jalankan tumbukan]
+  selain itu
+    siarkan [peringatan]
+selain itu
+  siarkan [ulangi] dan tunggu
+  siarkan [jalankan impuls]
+
+ketika saya menerima [sembunyikan semua]
+sembunyi</pre></div>
+<div class="code"><div class="cap">Tombol Ulangi</div><pre>ketika saya menerima [tampil tumbukan]
+tampilkan
+
+ketika saya menerima [tampil impuls]
+tampilkan
+
+ketika sprite ini diklik
+siarkan [ulangi]
+
+ketika saya menerima [sembunyikan semua]
+sembunyi</pre></div>
+<div class="code"><div class="cap">Tombol Kembali</div><pre>ketika saya menerima [tampil tumbukan]
+tampilkan
+
+ketika saya menerima [tampil impuls]
+tampilkan
+
+ketika sprite ini diklik
+siarkan [ke menu]
+
+ketika saya menerima [sembunyikan semua]
+sembunyi</pre></div>
+<div class="code"><div class="cap">Benda A (peringatan)</div><pre>ketika saya menerima [peringatan]
+katakan [Kereta merah harus lebih cepat dari kereta biru.] selama (3) detik</pre></div>
+
+<h3>Langkah 3. Menggerakkan kereta</h3>
+<p>Gerak per bingkai dihitung dengan faktor 0,3 piksel untuk tiap 1 m/s. Faktor ini hanya skala tampilan dan tidak memengaruhi hasil fisikanya, jadi boleh kamu ubah kalau gerakannya terasa terlalu cepat atau lambat.</p>
+<div class="code"><div class="cap">Benda B</div><pre>ketika saya menerima [jalankan tumbukan]
+ulangi (100) kali
+  ubah x sebesar ((vB) * (0.3))
+
+ketika saya menerima [ulangi]
+hentikan [skrip lain dalam sprite]
+pergi ke x: (45) y: (-21)</pre></div>
+
+<h3>Langkah 4. Tumbukan dan perhitungan kecepatan</h3>
+<p>Benda A mengurus tumbukan. Di setiap bingkai ia bergerak, lalu memeriksa apakah menyentuh Benda B. Pada sentuhan pertama, ia menghitung kecepatan setelah tumbukan.</p>
+<div class="code"><div class="cap">Benda A</div><pre>ketika saya menerima [jalankan tumbukan]
+ulangi (100) kali
+  ubah x sebesar ((vA) * (0.3))
+  jika &lt;&lt;menyentuh [Benda B]?&gt; dan &lt;(sudahTabrak) = (0)&gt;&gt; maka
+    atur [sudahTabrak] ke (1)
+    atur [v1akhir] ke ((((m1) - ((e) * (m2))) * (v1) + (m2) * (1 + (e)) * (v2)) / ((m1) + (m2)))
+    atur [v2Akhir] ke ((((m2) - ((e) * (m1))) * (v2) + (m1) * (1 + (e)) * (v1)) / ((m1) + (m2)))
+    atur [vA] ke (v1akhir)
+    atur [vB] ke (v2Akhir)
+    siarkan [hitung hasil]
+
+ketika saya menerima [ulangi]
+hentikan [skrip lain dalam sprite]
+sembunyikan variabel [pAwal]
+sembunyikan variabel [pAkhir]
+sembunyikan variabel [EKawal]
+sembunyikan variabel [EKakhir]
+pergi ke x: (-165) y: (-21)</pre></div>
+<p>Rumusnya adalah v1' = ((m1 - e·m2)·v1 + m2(1 + e)·v2) / (m1 + m2) dan v2' = ((m2 - e·m1)·v2 + m1(1 + e)·v1) / (m1 + m2). Tanda kurung adalah sumber kesalahan paling umum. Susun blok matematikanya dari bagian paling dalam ke luar, dan kalau terlalu panjang, buat variabel perantara <code>pembagi</code> untuk m1 + m2 supaya tiap blok lebih pendek. Pada tumbukan tidak lenting (e = 0), kedua kereta bergerak bersama dengan kecepatan sama, jadi gambarnya tampak menempel. Itu benar dan sesuai konsepnya.</p>
+
+<h3>Langkah 5. Menampilkan hasil</h3>
+<p>Setelah tumbukan, hitung momentum dan energi kinetik, lalu tampilkan. Pembulatan dua desimal dilakukan dengan mengalikan 100, membulatkan, lalu membagi 100, karena blok <b>bulatkan</b> hanya membulatkan ke bilangan bulat.</p>
+<div class="code"><div class="cap">Benda A (lanjutan)</div><pre>ketika saya menerima [hitung hasil]
+atur [pAwal] ke (((m1) * (v1)) + ((m2) * (v2)))
+atur [pAkhir] ke (((m1) * (v1akhir)) + ((m2) * (v2Akhir)))
+atur [EKawal] ke (((0.5) * (m1) * ((v1) * (v1))) + ((0.5) * (m2) * ((v2) * (v2))))
+atur [EKakhir] ke (((0.5) * (m1) * ((v1akhir) * (v1akhir))) + ((0.5) * (m2) * ((v2Akhir) * (v2Akhir))))
+atur [pAwal] ke ((bulatkan ((pAwal) * (100))) / (100))
+atur [pAkhir] ke ((bulatkan ((pAkhir) * (100))) / (100))
+atur [EKawal] ke ((bulatkan ((EKawal) * (100))) / (100))
+atur [EKakhir] ke ((bulatkan ((EKakhir) * (100))) / (100))
+tampilkan variabel [pAwal]
+tampilkan variabel [pAkhir]
+tampilkan variabel [EKawal]
+tampilkan variabel [EKakhir]
+jika &lt;(EKakhir) &lt; ((EKawal) - (0.05))&gt; maka
+  katakan [Momentum total tetap sama. Energi kinetik berkurang.] selama (4) detik
+selain itu
+  katakan [Momentum total tetap sama. Energi kinetik juga tetap.] selama (4) detik</pre></div>
+<p>Letakkan keempat kotak nilai (pAwal, pAkhir, EKawal, EKakhir) di sisi panggung yang tidak menutupi kereta, misalnya di bagian atas di bawah slider. Kalau waktu mepet, bagian energi kinetik boleh kamu tunda dulu, karena kekekalan momentum sudah terlihat dari pAwal dan pAkhir.</p>
+
+<h3>Langkah 6. Cek angka pertamamu</h3>
+<p>Dari menu, masuk ke Tumbukan. Atur m1 = 2, m2 = 2, v1 = 6, v2 = 0, pastikan tombol Jenis bertuliskan Lenting Sempurna, lalu klik Jalankan. Kereta merah harus berhenti dan kereta biru melaju 6 m/s, mirip dua bola bilyar. Momentum harus 12 sebelum dan 12 sesudah, dan energi kinetik 36 sebelum dan 36 sesudah. Kalau cocok, rumusmu benar. Klik Ulangi, ganti jenis ke Tidak Lenting, dan jalankan lagi: kedua kereta bergerak bersama, momentum tetap 12, dan energi kinetik turun menjadi 18.</p>
+
+<h2 id="script4">9. Script 4: impuls pada penahan rel</h2>
+<p>Bagian ini memakai kereta merah yang sama, jadi gambar baru yang diperlukan hanya penahan. Kereta meluncur dan menabrak penahan di ujung rel sampai berhenti. Perubahan momentumnya sama dengan m × v, jadi impulsnya I = Δp = m × v. Yang berbeda hanya waktu kontak, yang bergantung pada jenis penahan, dan itu menentukan gaya rata-rata F = I / Δt.</p>
+<h3>Langkah 1. Menggambar Penahan</h3>
+<ol class="steps">
+  <li>Buat sprite baru lewat <b>Lukis</b> dan beri nama <code>Penahan</code>.</li>
+  <li>Kostum pertama, <code>Beton</code>: gambar balok abu-abu kokoh setinggi sekitar 50 piksel dengan alat Persegi, dan beri tulisan kecil “Beton”.</li>
+  <li>Gandakan kostum, ubah namanya menjadi <code>Karet</code>, dan ganti warnanya menjadi hitam kebiruan dengan garis-garis tipis. Beri tulisan “Karet”.</li>
+  <li>Gandakan lagi, ubah namanya menjadi <code>Pegas</code>, dan gambar garis zigzag di depan balok memakai alat <b>Garis</b>. Beri tulisan “Pegas”.</li>
+  <li>Letakkan sprite di x = 215, y = -21 (sesuaikan y dengan rel) dan pastikan kostumnya tidak lebih lebar dari sekitar 30 piksel di sisi yang dihadapi kereta.</li>
+</ol>
+<h3>Langkah 2. Skrip Penahan</h3>
+<p>Setiap klik pada penahan mengganti jenisnya sekaligus mengubah waktu kontak dt. Angka waktu kontak berikut adalah angka ilustrasi untuk simulasi, bukan data teknis penahan rel yang sebenarnya.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Penahan</th><th class="num">dt (s)</th><th class="num">F = 20 / dt (N)</th></tr></thead>
+<tbody>
+<tr><td>Beton</td><td class="num">0,05</td><td class="num">400</td></tr>
+<tr><td>Karet</td><td class="num">0,2</td><td class="num">100</td></tr>
+<tr><td>Pegas</td><td class="num">1</td><td class="num">20</td></tr>
+</tbody></table></div>
+<p>Angka 20 pada kolom ketiga berasal dari m1 × v1 dengan m1 = 4 kg dan v1 = 5 m/s.</p>
+<div class="code"><div class="cap">Penahan</div><pre>ketika saya menerima [tampil impuls]
+ganti kostum menjadi [Beton]
+atur [dt] ke (0.05)
+pergi ke x: (215) y: (-21)
+tampilkan
+
+ketika sprite ini diklik
+kostum berikutnya
+jika &lt;(kostum [nomor]) = (1)&gt; maka
+  atur [dt] ke (0.05)
+jika &lt;(kostum [nomor]) = (2)&gt; maka
+  atur [dt] ke (0.2)
+jika &lt;(kostum [nomor]) = (3)&gt; maka
+  atur [dt] ke (1)
+
+ketika saya menerima [sembunyikan semua]
+sembunyi</pre></div>
+<h3>Langkah 3. Skrip kereta untuk impuls</h3>
+<div class="code"><div class="cap">Benda A (tambahan untuk Impuls)</div><pre>ketika saya menerima [jalankan impuls]
+atur [I] ke ((m1) * (v1))
+ulangi sampai &lt;menyentuh [Penahan]?&gt;
+  ubah x sebesar ((v1) * (0.5))
+atur [F] ke ((I) / (dt))
+katakan (gabung [Gaya rata-rata pada kereta: ] (gabung (F) [ N])) selama (3) detik</pre></div>
+<p>Nilai I dan F dihitung ulang setiap kali Jalankan ditekan, jadi tidak perlu dikosongkan saat Ulangi. Slider v1 dengan minimum 1 menjamin kereta selalu sampai ke penahan.</p>
+<h3>Langkah 4. Cek angkanya</h3>
+<p>Dari menu, masuk ke Impuls. Atur m1 = 4 dan v1 = 5. Dengan penahan Beton, klik Jalankan: kereta menabrak, I tampil 20, dt 0,05, dan F 400. Klik Ulangi, ganti penahan menjadi Karet lalu Pegas, dan jalankan lagi. F harus berubah menjadi 100 dan 20 sementara I tetap 20. Itulah pesan utama bagian ini: perubahan momentum yang sama bisa menghasilkan gaya yang sangat berbeda, tergantung berapa lama benda berhenti.</p>
+
+<h2 id="script56">10. Script 5 dan 6: kuis dan skor akhir</h2>
+<p>Kuis berisi tiga soal dan semuanya ditulis di satu skrip pada Benda A, tanpa sprite tambahan. Pertanyaan muncul dari gelembung ucapan kereta merah dan jawaban diketik di kolom bawah panggung memakai blok <b>tanya dan tunggu</b> dan blok <b>jawaban</b> dari kategori <b>Pengindraan</b>. Soal 1 menghitung momentum dari angka acak, soal 2 menghitung impuls dari angka acak, dan soal 3 adalah pilihan ganda tentang waktu kontak dan gaya. Tombol Kembali sengaja tidak tampil selama kuis supaya kuis tidak terputus, dan media otomatis kembali ke menu setelah skor ditampilkan (Script 6).</p>
+<div class="code"><div class="cap">Benda A (kuis)</div><pre>ketika saya menerima [mulai kuis]
+atur [skor] ke (0)
+
+atur [a] ke (pilih acak (2) sampai (10))
+atur [b] ke (pilih acak (2) sampai (10))
+tanya (gabung (gabung [Kereta bermassa ] (a)) (gabung [ kg melaju ] (gabung (b) [ m/s. Berapa momentumnya (kg m/s)?]))) dan tunggu
+jika &lt;(jawaban) = ((a) * (b))&gt; maka
+  ubah [skor] sebesar (1)
+  katakan [Benar!] selama (1) detik
+selain itu
+  katakan (gabung [Belum tepat. p = m x v = ] ((a) * (b))) selama (2) detik
+
+atur [a] ke (pilih acak (10) sampai (50))
+atur [b] ke (pilih acak (2) sampai (5))
+tanya (gabung (gabung [Gaya ] (a)) (gabung [ N bekerja selama ] (gabung (b) [ s. Berapa impulsnya (N s)?]))) dan tunggu
+jika &lt;(jawaban) = ((a) * (b))&gt; maka
+  ubah [skor] sebesar (1)
+  katakan [Benar!] selama (1) detik
+selain itu
+  katakan (gabung [Belum tepat. I = F x dt = ] ((a) * (b))) selama (2) detik
+
+tanya [Kereta menabrak penahan. Agar gaya yang dialami lebih kecil, waktu kontak sebaiknya: A. lebih singkat, B. lebih lama, C. tidak berpengaruh. Ketik A, B, atau C.] dan tunggu
+jika &lt;(jawaban) = [B]&gt; maka
+  ubah [skor] sebesar (1)
+  katakan [Benar! Waktu kontak lebih lama membuat gaya lebih kecil.] selama (2) detik
+selain itu
+  katakan [Jawabannya B. Impuls sama, jadi F = I / dt makin kecil kalau dt makin besar.] selama (3) detik
+
+katakan (gabung [Skormu ] (gabung (skor) [ dari 3])) selama (4) detik
+siarkan [ke menu]</pre></div>
+<p>Pembandingan dengan blok sama di Scratch tidak peduli huruf besar atau kecil, jadi jawaban “b” dan “B” sama-sama diterima. Karena semua angka acaknya bulat, jawaban hitungan cocok persis dan tidak perlu toleransi. Blok gabung hanya menerima dua isian, jadi kalimat yang panjang disusun dengan menumpuk beberapa blok gabung seperti pada skrip di atas. Pertanyaan panjang yang tampil di gelembung bisa terpotong di tepi layar, jadi kalau itu terjadi, pendekkan kalimat pertanyaannya.</p>
+<p>Dua blok terakhir adalah Script 6: kalimat skor tampil selama empat detik, lalu <code>siarkan [ke menu]</code> membawa siswa kembali ke menu. Uji dengan menjawab ketiga soal. Skor akhir harus sesuai jumlah jawaban benarmu, dan setelah itu menu muncul lagi.</p>
+
+<h2 id="uji">11. Uji menyeluruh dan angka acuan</h2>
+<p>Setelah semua bagian jadi, jalankan satu putaran lengkap: bendera hijau, Mulai, Tumbukan (dengan ketiga jenis), Kembali, Impuls (dengan ketiga penahan), Kembali, dan Kuis sampai selesai. Angka berikut sudah dihitung dengan rumus yang sama dengan skripmu, jadi pakai sebagai alat uji. Dalam semua baris, momentum total tidak berubah, dan energi kinetik hanya tetap pada baris dengan e = 1.</p>
+<div class="tablewrap"><table>
+<thead><tr><th class="num">m1</th><th class="num">m2</th><th class="num">v1</th><th class="num">v2</th><th class="num">e</th><th class="num">v1akhir</th><th class="num">v2Akhir</th><th class="num">p awal = akhir</th><th class="num">EK awal</th><th class="num">EK akhir</th></tr></thead>
+<tbody>
+<tr><td class="num">2</td><td class="num">2</td><td class="num">6</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">6</td><td class="num">12</td><td class="num">36</td><td class="num">36</td></tr>
+<tr><td class="num">2</td><td class="num">2</td><td class="num">6</td><td class="num">0</td><td class="num">0,5</td><td class="num">1,5</td><td class="num">4,5</td><td class="num">12</td><td class="num">36</td><td class="num">22,5</td></tr>
+<tr><td class="num">2</td><td class="num">2</td><td class="num">6</td><td class="num">0</td><td class="num">0</td><td class="num">3</td><td class="num">3</td><td class="num">12</td><td class="num">36</td><td class="num">18</td></tr>
+<tr><td class="num">4</td><td class="num">1</td><td class="num">5</td><td class="num">0</td><td class="num">1</td><td class="num">3</td><td class="num">8</td><td class="num">20</td><td class="num">50</td><td class="num">50</td></tr>
+</tbody></table></div>
+<p>Baris pertama sampai ketiga memakai angka sama dan hanya mengganti jenis tumbukan, jadi enak untuk didemokan: momentum selalu 12, tetapi energi kinetik turun dari 36 menjadi 22,5 lalu 18. Untuk impuls, dengan m1 = 4 dan v1 = 5, I selalu 20 dan F adalah 400, 100, dan 20 untuk Beton, Karet, dan Pegas.</p>
+<p>Uji juga kasus batas. Atur v1 sama dengan v2 pada Tumbukan dan klik Jalankan: Benda A harus mengucapkan peringatan dan simulasi tidak berjalan. Klik Kembali di tengah simulasi: semua sprite harus hilang, menu tampil, dan saat masuk lagi kedua kereta berada di posisi awal. Klik bendera hijau lalu hentikan dengan tombol merah: tampilan kembali ke pembuka saat bendera hijau diklik lagi.</p>
+
+<h2 id="bagikan">12. Menyimpan, membagikan, dan mengambil link</h2>
+<p>Tautan proyek diperlukan untuk bagian Link Media pada dokumen Script. Agar tautan bisa dibuka dosenmu tanpa masuk akun, proyek harus dibagikan lebih dulu.</p>
+<ol class="steps">
+  <li>Buka <b>Berkas</b> lalu <b>Simpan sekarang</b> untuk memastikan versi terbaru tersimpan.</li>
+  <li>Klik tombol oranye <b>Bagikan</b> di bilah atas. Proyek berpindah ke halaman karya dan statusnya menjadi dibagikan. Kamu juga bisa membukanya lewat <b>Lihat Halaman Karya</b>.</li>
+  <li>Di halaman karya, isi kotak <b>Petunjuk</b> dengan cara memakai media, misalnya: “Klik Mulai, pilih Tumbukan, Impuls, atau Kuis. Atur slider lalu klik Jalankan.” Isi kotak <b>Catatan dan Kredit</b> dengan keterangan aset dan batasan simulasi, yaitu model satu dimensi tanpa gesekan dan angka waktu kontak penahan yang bersifat ilustrasi.</li>
+  <li>Salin alamat dari bilah alamat peramban. Bentuknya <code>https://scratch.mit.edu/projects/</code> diikuti deretan angka.</li>
+  <li>Uji tautan itu di jendela penyamaran atau peramban lain tanpa masuk akun. Kalau proyek terbuka dan bisa dijalankan, tautannya siap dipakai.</li>
+  <li>Tempel tautan di bagian <b>Link Media</b> pada dokumen Script, dan buat cadangan .sb3 sekali lagi lewat <b>Simpan ke komputer-mu</b>.</li>
+</ol>
+<p>Kalau tombol Bagikan tidak muncul atau proyek tidak bisa dibagikan, biasanya akunmu belum dikonfirmasi lewat email. Cek kotak masuk email yang kamu pakai mendaftar dan ikuti tautan konfirmasinya.</p>
+
+<h2 id="docx">13. Mengisi dokumen Script (docx)</h2>
+<p>Dokumen Word yang diminta dosen berisi enam Script, masing-masing menjelaskan satu tampilan, plus Link Media. Teksnya sudah kamu punya, jadi yang tersisa hanya tangkapan layar dan tautan. Ambil tangkapan layar tiap tampilan dari panggung dalam mode penuh: klik tombol layar penuh di kanan atas panggung, tekan Win + Shift + S di Windows (atau Command + Shift + 4 di Mac), pilih area panggung, lalu tempel di kotak yang disediakan pada tiap Script. Tampilkan hasil yang bermakna agar tangkapan layarnya berbicara: pada Script 3, ambil gambar setelah tumbukan dengan panel momentum terlihat, dan pada Script 4 ambil gambar setelah kereta menabrak dengan I, dt, dan F terlihat.</p>
+
+<h2 id="masalah">14. Masalah yang sering muncul</h2>
+<details><summary>Kereta tidak bertabrakan atau saling melewati</summary><div><p>Kemungkinan kereta terlalu cepat sehingga melompati posisi saling sentuh, atau y kedua sprite tidak sejajar. Kecilkan faktor 0,3 menjadi 0,2, atau batasi v1 maksimal 8. Scratch menguji sentuhan dari bagian gambar yang tidak transparan, jadi pastikan keduanya benar-benar berada pada garis yang sama.</p></div></details>
+<details><summary>Kereta biru langsung mentok di tepi kanan</summary><div><p>Ukuran masih terlalu besar atau posisi B terlalu ke kanan. Kecilkan ukuran ke 35 persen dan geser Benda B ke sekitar x = 45. Scratch menahan sprite agar tidak keluar panggung sepenuhnya, jadi gambar tampak berhenti di tepi.</p></div></details>
+<details><summary>Hasil tumbukan dihitung berulang</summary><div><p>Pastikan sudahTabrak diatur ke 0 sebelum simulasi dan diubah ke 1 tepat saat tumbukan, dan kondisi memakai blok “dan”. Cek juga bahwa tidak ada dua skrip <code>ketika saya menerima [jalankan tumbukan]</code> pada sprite yang sama.</p></div></details>
+<details><summary>Momentum sebelum dan sesudah berbeda sedikit</summary><div><p>Itu biasanya hanya pembulatan, dan wajar kalau selisihnya di bawah 0,05. Kalau selisihnya besar, periksa tanda kurung pada rumus v1akhir dan v2Akhir, terutama bagian (1 + e).</p></div></details>
+<details><summary>Sprite tidak muncul atau tidak hilang saat pindah tampilan</summary><div><p>Periksa tabel pesan di bagian 6 dan pastikan sprite itu punya blok “ketika saya menerima” untuk pesan <code>tampil</code> yang sesuai dan satu untuk <code>sembunyikan semua</code>. Salah ketik pada nama pesan adalah penyebab paling sering. Nama pesan dan nama variabel harus sama persis.</p></div></details>
+<details><summary>Slider atau kotak variabel tidak tampil di bagian tertentu</summary><div><p>Periksa skrip Panggung untuk pesan <code>ke tumbukan</code> dan <code>ke impuls</code>, dan pastikan blok “tampilkan variabel” untuk variabel yang dibutuhkan ada. Periksa juga huruf besar pada v2Akhir.</p></div></details>
+<details><summary>Kuis berhenti atau pertanyaan terpotong</summary><div><p>Kalau kuis macet, periksa bahwa pesan <code>mulai kuis</code> dikirim Panggung setelah <code>tampil kuis</code>, dan bahwa Benda A sedang tampil. Pertanyaan yang terlalu panjang bisa terpotong di gelembung, jadi pendekkan kalimatnya.</p></div></details>
+<details><summary>Proyek berantakan dan sulit dilacak</summary><div><p>Beri nama setiap sprite sesuai fungsinya, kelompokkan skrip yang bersangkutan, dan tulis komentar singkat dengan klik kanan pada ruang skrip. Pisahkan skrip berdasarkan pesan siaran, jangan menumpuknya dalam satu blok panjang.</p></div></details>
+
+<h2 id="validasi">15. Validasi teman sejawat dan daftar periksa</h2>
+<p>Dosen mensyaratkan uji kelayakan oleh minimal tiga teman sejawat sebelum media dikumpulkan dalam versi revisi. Beri ketiganya tautan proyek dan biarkan mereka mencoba sendiri sekitar lima sampai sepuluh menit tanpa penjelasan tambahan, karena petunjuk di dalam media juga bagian yang dinilai. Setelah itu mereka mengisi angket dengan skala: 1 sangat tidak setuju, 2 tidak setuju, 3 setuju, dan 4 sangat setuju.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Aspek</th><th>Pernyataan</th></tr></thead>
+<tbody>
+<tr><td>Materi</td><td>Konsep momentum dan kekekalannya pada tumbukan dalam media sudah benar.</td></tr>
+<tr><td>Materi</td><td>Konsep impuls dan hubungan waktu kontak dengan gaya dalam media sudah benar.</td></tr>
+<tr><td>Tampilan</td><td>Latar, gambar kereta, dan tulisan jelas serta nyaman dilihat.</td></tr>
+<tr><td>Tampilan</td><td>Petunjuk di media mudah dipahami tanpa penjelasan tambahan.</td></tr>
+<tr><td>Kemudahan penggunaan</td><td>Tombol dan slider mudah ditemukan dan dioperasikan.</td></tr>
+<tr><td>Kemudahan penggunaan</td><td>Media berjalan lancar tanpa kesalahan selama dicoba.</td></tr>
+<tr><td>Kebermanfaatan</td><td>Media membantu siswa memahami momentum dan impuls lewat percobaan sendiri.</td></tr>
+<tr><td>Kebermanfaatan</td><td>Kuis membantu siswa mengecek pemahamannya.</td></tr>
+</tbody></table></div>
+<p>Tambahkan kolom saran terbuka dan identitas validator di akhir angket. Persentase kelayakan dihitung dengan membagi skor yang diperoleh dengan skor maksimum, lalu mengalikannya dengan 100 persen. Skor maksimum adalah jumlah butir dikali 4 dikali jumlah validator, jadi dengan delapan butir dan tiga validator nilainya 96. Kalau skor yang terkumpul 84, kelayakannya 87,5 persen. Banyak penelitian pengembangan media membagi hasilnya ke empat kategori dengan lebar sama: 81 sampai 100 persen sangat layak, 61 sampai 80 layak, 41 sampai 60 cukup layak, dan 0 sampai 40 kurang layak. Pembagian ini lazim, tetapi tanyakan dulu apakah dosenmu punya kriteria sendiri. Simpan juga catatan revisi (masukan validator dan perbaikan yang kamu lakukan) dengan tangkapan layar sebelum dan sesudah, karena itu bahan yang bagus untuk artikelmu.</p>
+<p>Daftar periksa terakhir sebelum pertemuan 16:</p>
+<ul class="check">
+  <li>Latar penuh tanpa strip putih dan kedua kereta berukuran sekitar 35 persen</li>
+  <li>Halaman pembuka menampilkan judul, nama, NIM, dan keterangan aset yang benar</li>
+  <li>Tumbukan cocok dengan keempat baris angka acuan</li>
+  <li>Impuls menunjukkan I tetap dan F berubah mengikuti jenis penahan</li>
+  <li>Kuis berjalan sampai skor tampil dan kembali ke menu</li>
+  <li>Tombol Kembali berfungsi, tidak ada sprite yang tertinggal di layar</li>
+  <li>Proyek dibagikan, tautan sudah diuji tanpa masuk akun, dan Petunjuk serta Catatan dan Kredit sudah diisi</li>
+  <li>Dokumen Script berisi tangkapan layar dan tautan</li>
+  <li>Tiga validator sudah mengisi angket dan persentase kelayakan dihitung</li>
+  <li>Berkas .sb3 tersimpan di dua tempat dan draft artikel sudah disubmit</li>
+</ul>
+
+<footer>Rumus tumbukan satu dimensi dan angka pada tabel uji sudah dihitung ulang dengan kode. Skrip blok pada panduan ini ditulis sebagai teks dan belum dijalankan langsung di editor Scratch, jadi cocokkan hasilnya dengan angka acuan. Angka waktu kontak penahan adalah ilustrasi untuk simulasi, bukan data teknis penahan rel sebenarnya.</footer>
+</div>
+
+</body></html>
